@@ -31,7 +31,7 @@ export default ({ favoriteToys, collectToyInfo, submit, bands }) => (
     </div>
     <div className="flex-auto"></div>
     <div>
-      <img src="tmkelly28.github.io/codys-homepage/public/cody.jpg" />
+      <img src="/codys-homepage/public/cody.jpg" />
     </div>
     <div className="flex-auto"></div>
   </div>
