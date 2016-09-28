@@ -21958,7 +21958,7 @@
 	    _react2.default.createElement(
 	      'div',
 	      null,
-	      _react2.default.createElement('img', { src: '/public/cody.jpg' })
+	      _react2.default.createElement('img', { src: './public/cody.jpg' })
 	    ),
 	    _react2.default.createElement('div', { className: 'flex-auto' })
 	  );
