@@ -3,51 +3,37 @@
 import React, { Component } from 'react';
 import App from '../components/App';
 
-const radioheadevents = [
-  { 
-    name: 'Radiohead plays at Grace Hopper'
-  }
-]
+const initialState = { favoriteThings: [] };
 
 export default class AppContainer extends Component {
 
   constructor (props) {
     super(props);
-    this.state = {
-      pictures: [],
-      favoriteToys: [{ name: 'tennis ball' }, { name: 'ducky' }],
-      friends: [],
-      bestFriend: 'Chris',
-      bandsCodyWantsToSee: []
-    };
-    this.collectToyInfo = this.collectToyInfo.bind(this);
+    this.state = initialState;
+    this.getInput = this.getInput.bind(this);
     this.submit = this.submit.bind(this);
   }
 
-  componentDidMount () {
-    let bandName = 'Radiohead';
-    Promise.resolve(radioheadevents)
-      .then(events => {
-        this.setState({
-          bandsCodyWantsToSee: radioheadevents
-        })
-      });
-  }
-
-  collectToyInfo (evt) {
-    this.newToy = evt.target.value;
+  getInput (evt) {
+    this._input = evt.target.value;
   }
 
   submit () {
     this.setState(prevState => ({
-      favoriteToys: [...prevState.favoriteToys, {name: this.newToy}]
-    }), () => {
-      this.newToy = '';
-    });
+      favoriteThings: [...prevState.favoriteThings, {name: this._input}]
+    }), () => this._input = '');
   }
 
   render () {
+    const { state, getInput, submit } = this;
+    const { favoriteThings } = state;
 
-    return <App favoriteToys={this.state.favoriteToys} collectToyInfo={this.collectToyInfo} submit={this.submit} bands={this.state.bandsCodyWantsToSee} />
+    return (
+      <App 
+        favoriteThings={favoriteThings} 
+        getInput={getInput} 
+        submit={submit} 
+      />
+    )
   }
 } 
