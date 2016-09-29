@@ -21808,9 +21808,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var radioheadevents = [{
-	  name: 'Radiohead plays at Grace Hopper'
-	}];
+	var initialState = { favoriteThings: [] };
 
 	var AppContainer = function (_Component) {
 	  _inherits(AppContainer, _Component);
@@ -21820,53 +21818,44 @@
 
 	    var _this = _possibleConstructorReturn(this, (AppContainer.__proto__ || Object.getPrototypeOf(AppContainer)).call(this, props));
 
-	    _this.state = {
-	      pictures: [],
-	      favoriteToys: [{ name: 'tennis ball' }, { name: 'ducky' }],
-	      friends: [],
-	      bestFriend: 'Chris',
-	      bandsCodyWantsToSee: []
-	    };
-	    _this.collectToyInfo = _this.collectToyInfo.bind(_this);
+	    _this.state = initialState;
+	    _this.getInput = _this.getInput.bind(_this);
 	    _this.submit = _this.submit.bind(_this);
 	    return _this;
 	  }
 
 	  _createClass(AppContainer, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var _this2 = this;
-
-	      var bandName = 'Radiohead';
-	      Promise.resolve(radioheadevents).then(function (events) {
-	        _this2.setState({
-	          bandsCodyWantsToSee: radioheadevents
-	        });
-	      });
-	    }
-	  }, {
-	    key: 'collectToyInfo',
-	    value: function collectToyInfo(evt) {
-	      this.newToy = evt.target.value;
+	    key: 'getInput',
+	    value: function getInput(evt) {
+	      this._input = evt.target.value;
 	    }
 	  }, {
 	    key: 'submit',
 	    value: function submit() {
-	      var _this3 = this;
+	      var _this2 = this;
 
 	      this.setState(function (prevState) {
 	        return {
-	          favoriteToys: [].concat(_toConsumableArray(prevState.favoriteToys), [{ name: _this3.newToy }])
+	          favoriteThings: [].concat(_toConsumableArray(prevState.favoriteThings), [{ name: _this2._input }])
 	        };
 	      }, function () {
-	        _this3.newToy = '';
+	        return _this2._input = '';
 	      });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var state = this.state;
+	      var getInput = this.getInput;
+	      var submit = this.submit;
+	      var favoriteThings = state.favoriteThings;
 
-	      return _react2.default.createElement(_App2.default, { favoriteToys: this.state.favoriteToys, collectToyInfo: this.collectToyInfo, submit: this.submit, bands: this.state.bandsCodyWantsToSee });
+
+	      return _react2.default.createElement(_App2.default, {
+	        favoriteThings: favoriteThings,
+	        getInput: getInput,
+	        submit: submit
+	      });
 	    }
 	  }]);
 
@@ -21892,10 +21881,9 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = function (_ref) {
-	  var favoriteToys = _ref.favoriteToys;
-	  var collectToyInfo = _ref.collectToyInfo;
+	  var favoriteThings = _ref.favoriteThings;
+	  var getInput = _ref.getInput;
 	  var submit = _ref.submit;
-	  var bands = _ref.bands;
 	  return _react2.default.createElement(
 	    'div',
 	    { className: 'flex flex-center container m4' },
@@ -21913,32 +21901,16 @@
 	        _react2.default.createElement(
 	          'h3',
 	          null,
-	          'Cody\'s Favorite Toys'
+	          'Cody\'s Favorite Things'
 	        ),
 	        _react2.default.createElement(
 	          'ul',
 	          { className: 'list-reset ml2' },
-	          favoriteToys.map(function (toy) {
+	          favoriteThings.map(function (toy) {
 	            return _react2.default.createElement(
 	              'li',
 	              { key: toy.name },
 	              toy.name
-	            );
-	          })
-	        ),
-	        _react2.default.createElement(
-	          'h3',
-	          null,
-	          'Cody is so psyched about....'
-	        ),
-	        _react2.default.createElement(
-	          'ul',
-	          { className: 'list-reset ml2' },
-	          bands.map(function (event) {
-	            return _react2.default.createElement(
-	              'li',
-	              { key: event.name },
-	              event.name
 	            );
 	          })
 	        )
@@ -21946,11 +21918,11 @@
 	      _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement('input', { type: 'text', className: 'field', placeholder: 'Add new toy', onChange: collectToyInfo }),
+	        _react2.default.createElement('input', { type: 'text', className: 'field', placeholder: 'Add new toy', onChange: getInput }),
 	        _react2.default.createElement(
 	          'button',
 	          { className: 'btn', onClick: submit },
-	          'Add Toy'
+	          'Submit'
 	        )
 	      )
 	    ),
