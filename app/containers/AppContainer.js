@@ -27,7 +27,7 @@ export default class AppContainer extends Component {
   render () {
     const { state, getInput, submit } = this;
     const { favoriteThings } = state;
-
+    console.log('!!!!')
     return (
       <App 
         favoriteThings={favoriteThings} 
