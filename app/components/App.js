@@ -7,7 +7,7 @@ export default ({ favoriteThings, getInput, submit }) => (
     <div>
       <h1>Cody's Homepage</h1>
       <div>
-        <h3>Cody's Favorite Things</h3>
+        <h3>Cody's Favorite Things!</h3>
         <ul className="list-reset ml2">
           {
             favoriteThings.map(toy => (
